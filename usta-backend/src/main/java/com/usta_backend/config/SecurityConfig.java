@@ -29,6 +29,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/users/init-admin").permitAll()
                         .requestMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET,"/profile").hasAnyRole("CLIENT", "ADMIN", "EXECUTOR")
                         .anyRequest().permitAll()
                 )
 

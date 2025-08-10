@@ -33,6 +33,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/ads/**").hasAnyRole("CLIENT","EXECUTOR","ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/ads/**").hasAnyRole("CLIENT","EXECUTOR","ADMIN")
                         .requestMatchers(org.springframework.http.HttpMethod.POST, "/ads").hasAnyRole("CLIENT","EXECUTOR","ADMIN")
+                        .requestMatchers("/favorites/**").hasAnyRole("CLIENT","EXECUTOR","ADMIN")
 
                         .requestMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")

@@ -23,7 +23,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword(); // пока так, потом добавим нормальные пароли
+        return user.getPassword();
     }
 
     @Override

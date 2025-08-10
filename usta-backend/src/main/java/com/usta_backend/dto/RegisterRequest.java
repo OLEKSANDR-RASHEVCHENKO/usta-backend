@@ -1,4 +1,4 @@
-package com.usta_backend.userDto;
+package com.usta_backend.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,10 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
-    private Long id;
-    private String email;
+public class RegisterRequest {
     private String name;
+    private String email;
     private String phone;
-    private String role;
+    private String password;
 }

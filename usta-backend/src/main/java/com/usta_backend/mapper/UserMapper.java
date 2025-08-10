@@ -1,6 +1,6 @@
 package com.usta_backend.mapper;
 
-import com.usta_backend.userDto.UserDto;
+import com.usta_backend.dto.UserDto;
 import com.usta_backend.model.User;
 import org.springframework.stereotype.Component;
 

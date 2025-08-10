@@ -28,6 +28,10 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/users/init-admin").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/register").permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/ads/**").permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.POST, "/ads").hasAnyRole("CLIENT","EXECUTOR","ADMIN")
+
                         .requestMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET,"/profile").hasAnyRole("CLIENT", "ADMIN", "EXECUTOR")

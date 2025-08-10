@@ -2,7 +2,7 @@ package com.usta_backend.service;
 
 import com.usta_backend.model.User;
 import com.usta_backend.repository.UserRepository;
-import com.usta_backend.userDto.UserDto;
+import com.usta_backend.dto.UserDto;
 import com.usta_backend.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

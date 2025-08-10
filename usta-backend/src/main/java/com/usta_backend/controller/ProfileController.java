@@ -1,7 +1,7 @@
 package com.usta_backend.controller;
 
 
-import com.usta_backend.userDto.UserDto;
+import com.usta_backend.dto.UserDto;
 import com.usta_backend.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

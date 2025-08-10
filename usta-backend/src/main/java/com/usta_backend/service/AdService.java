@@ -9,11 +9,13 @@ import com.usta_backend.model.Role;
 import com.usta_backend.model.User;
 import com.usta_backend.repository.AdRepository;
 import com.usta_backend.repository.UserRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.nio.file.AccessDeniedException;
+import org.springframework.data.domain.*;
+import java.math.BigDecimal;
 import java.util.List;
+import java.nio.file.AccessDeniedException;
 
 @Service
 @Transactional
@@ -99,5 +101,49 @@ public class AdService {
 
         adRepository.delete(ad);
     }
+    public Page<AdDto> catalog(
+            String title,
+            String category,
+            String city,
+            BigDecimal priceMin,
+            BigDecimal priceMax,
+            int page,
+            int size,
+            String sort // пример: "price,asc" или "createdAt,desc"
+    ) {
+        Sort sortSpec = Sort.unsorted();
+        if (sort != null && !sort.isBlank()) {
+            // поддержка формата "field,dir"
+            String[] parts = sort.split(",", 2);
+            String field = parts[0];
+            Sort.Direction dir = (parts.length > 1 && "desc".equalsIgnoreCase(parts[1]))
+                    ? Sort.Direction.DESC
+                    : Sort.Direction.ASC;
+            sortSpec = Sort.by(dir, field);
+        }
+
+        Pageable pageable = PageRequest.of(page, size, sortSpec);
+        Page<Ad> pageAds = adRepository.searchNative(
+                Ad.Status.ACTIVE.name(),   // <-- передаём строку
+                nullIfBlank(title),
+                nullIfBlank(category),
+                nullIfBlank(city),
+                priceMin,
+                priceMax,
+                pageable
+        );
+
+
+        List<AdDto> content = pageAds.getContent().stream()
+                .map(adMapper::toDto)
+                .toList();
+
+        return new PageImpl<>(content, pageable, pageAds.getTotalElements());
+    }
+
+    private String nullIfBlank(String s) {
+        return (s == null || s.isBlank()) ? null : s;
+    }
 }
+
 

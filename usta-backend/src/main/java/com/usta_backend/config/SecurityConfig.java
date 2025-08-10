@@ -30,6 +30,8 @@ public class SecurityConfig {
                         .requestMatchers("/users/init-admin").permitAll()
                         .requestMatchers(HttpMethod.POST, "/register").permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/ads/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/ads/**").hasAnyRole("CLIENT","EXECUTOR","ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/ads/**").hasAnyRole("CLIENT","EXECUTOR","ADMIN")
                         .requestMatchers(org.springframework.http.HttpMethod.POST, "/ads").hasAnyRole("CLIENT","EXECUTOR","ADMIN")
 
                         .requestMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
